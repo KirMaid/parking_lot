@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MainTableController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('pages.view');
-});
+//Route::get('/', function () {
+//    return view('pages.view');
+//});
+
+Route::get('/', [MainTableController::class,'index']);
 
 Route::get('/add', function () {
     return view('pages.add');
