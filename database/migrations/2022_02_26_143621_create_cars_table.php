@@ -15,14 +15,13 @@ class CreateCarsTable extends Migration
     {
         Schema::create('cars', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('brand');
             $table->string('model');
             $table->string('color');
             $table->string('state_number');
             $table->boolean('flag');
-            $table->unsignedbigInteger('client_id');
-            $table->foreign('client_id')->references('id')->on('clients');
+            $table->foreignId('client_id')->constrained('clients')->onUpdate('cascade')->onDelete('cascade');;
+//            $table->foreignId('client_id')->references('id')->on('clients');
         });
     }
 

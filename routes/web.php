@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AddPageController;
+use App\Http\Controllers\EditPageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainTableController;
 
@@ -19,11 +21,9 @@ use App\Http\Controllers\MainTableController;
 //});
 
 Route::get('/', [MainTableController::class,'index']);
+Route::get('/edit',[EditPageController::class,'index'])->name('edit');
+Route::get('/add',[AddPageController::class,'index'])->name('add');
+Route::get('/delete/{id}',[MainTableController::class,'delete_client'])->name('delete');
 
-Route::get('/add', function () {
-    return view('pages.add');
-});
 
-Route::get('/edit', function () {
-    return view('pages.edit');
-});
+
