@@ -10,7 +10,10 @@ class EditPageController extends Controller
 //    public function index($clientInformation){
 //        return view('edit.view', ['clientInformation' => $clientInformation]);
 //    }
-    public function index(){
-        return view('pages.edit');
+    public function index(int $id){
+        $client = DB::table('clients')->where('id','=',$id)->first();
+        $cars = DB::table('cars')->where('client_id','=',$id)->get();
+//        return view('pages.edit',['client' => $client,'cars' => $cars]);
+        return view('pages.edit',compact('client','cars'));
     }
 }

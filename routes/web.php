@@ -21,9 +21,10 @@ use App\Http\Controllers\MainTableController;
 //});
 
 Route::get('/', [MainTableController::class,'index']);
-Route::get('/edit',[EditPageController::class,'index'])->name('edit');
-Route::get('/add',[AddPageController::class,'index'])->name('add');
-Route::get('/delete/{id}',[MainTableController::class,'delete_client'])->name('delete');
+//Route::get('/edit',[EditPageController::class,'index'])->name('edit');
+Route::get('/edit/{id}',[EditPageController::class,'index'])->name('edit.show');
+Route::get('/add',[AddPageController::class,'index'])->name('add.index');
+Route::get('/delete/{id}',[MainTableController::class,'delete_client'])->name('delete.show');
 
-
+//Route::resource('users','UserController');
 
