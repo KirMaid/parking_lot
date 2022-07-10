@@ -20,11 +20,13 @@ use App\Http\Controllers\MainTableController;
 //    return view('pages.view');
 //});
 
-Route::get('/', [MainTableController::class,'index']);
+Route::get('/', [MainTableController::class,'index'])->name('index');
 //Route::get('/edit',[EditPageController::class,'index'])->name('edit');
 Route::get('/edit/{id}',[EditPageController::class,'index'])->name('edit.show');
+Route::post('/edit/{id}',[EditPageController::class,'editClient'])->name('edit.store');
 Route::get('/add',[AddPageController::class,'index'])->name('add.index');
-Route::get('/delete/{id}',[MainTableController::class,'delete_client'])->name('delete.show');
+Route::post('/add',[AddPageController::class,'insertClient'])->name('add.store');
+Route::delete('/{id}',[MainTableController::class,'destroy'])->name('destroy');
 
 //Route::resource('users','UserController');
 

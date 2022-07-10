@@ -21,15 +21,21 @@
                 <td>{{$clientAndCar->state_number}}</td>
 {{--                <td><a href="{{route('edit'),['clientInformation' => $clientAndCar]}}"><i class="bi bi-pencil-square"></i></a></td>--}}
                 <td><a href={{route('edit.show',['id' => $clientAndCar->client_id])}}><i class="bi bi-pencil-square"></i></a></td>
-                <td><a href={{route('delete.show',['id' => $clientAndCar->client_id])}}><i class="bi bi-x-square"></i></a></td>
+                <form action="{{ route('destroy',['id' => $clientAndCar->client_id])}}" method="POST">
+                    @csrf
+                    @method('delete')
+                    <td><button class="btn btn-link" type="submit"><i class="bi bi-x-square"></i></button></td>
+{{--                    <td><button class="btn-close" type="submit"></button></td>--}}
+{{--                    <button type="submit" class="btn btn-outline-danger">Delete</button>--}}
+                </form>
+{{--                <td><a href={{route('destroy',['id' => $clientAndCar->client_id])}}><i class="bi bi-x-square"></i></a></td>--}}
             </tr>
         @endforeach
         </tbody>
     </table>
-    <a href="{{route('add.index')}}" class="ms-auto"><button class="btn btn-primary">Добавить клиента</button></a>
-{{--        {{$clientsAndCars->links()}}--}}
     <div class="d-flex mb-3 mt-4">
         {{$clientsAndCars->onEachSide(5)->links()}}
+        <a href="{{route('add.index')}}" class="ms-auto"><button class="btn btn-primary">Добавить клиента</button></a>
     </div>
     <h1 class="mt-3">Ввод автомобиля на стоянку</h1>
     <div class="form-group mb-3">

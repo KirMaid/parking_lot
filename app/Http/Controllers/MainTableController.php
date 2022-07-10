@@ -28,8 +28,9 @@ class MainTableController extends Controller
 //    }
 
 
-    public function delete_client($id){
-        DB::table('clients')->where('id', '=',$id)->delete();
+    public function destroy($id){
+        DB::table('cars')->where('client_id','=',$id)->delete();
+        //DB::table('clients')->where('id', '=',$id)->delete();
 //        DB::table('cars')->where('client_id', '=',$id)->delete();
         return redirect()->back();
     }
