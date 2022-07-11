@@ -12,35 +12,78 @@ class EditPageController extends Controller
 //        return view('edit.view', ['clientInformation' => $clientInformation]);
 //    }
     public function index(int $id){
-        $client = DB::table('clients')->where('id','=',$id)->first();
-        $cars = DB::table('cars')->where('client_id','=',$id)->get();
+        $car = DB::table('cars')->where('id','=',$id)->first();
+        $client = DB::table('clients')->where('id','=',$car->client_id)->first();
+
         //dd($client);
-//        return view('pages.edit',['client' => $client,'cars' => $cars]);
+
         if ($client != null)
-            return view('pages.edit',compact('client','cars'));
+            return view('pages.edit',compact('client','car'));
         else
             return abort(404);
     }
 
-    public function editClient(int $id)
+    public function editClient($carId)
     {
+        //dd($car);
+        //$clientId = $car->client_id;
+        //$carId = $car->id;
+        $clientId = DB::table('cars')->where('id','=',$carId)->first()->client_id;
         $data = request()->validate([
             'full_name'=>'string|required',
             'phone_number'=>'int|required',
             'gender'=>'string|required',
             'address'=>'string|required',
+            'brand'=>'string|required',
+            'model'=>'string|required',
+            'state_number'=>'string|required',
+            'color'=>'string|required',
         ]);
-        try {
-            DB::table('clients')->where('id','=',$id)->update([
-                'full_name'=>$data['full_name'],
-                'phone_number'=>$data['phone_number'],
-                'gender'=>$data['gender'],
-                'address'=>$data['address']]);
-            return redirect()->route('home');
+        $searchPhoneNumberDuplicate =  DB::table('clients')->where('phone_number','=',$data['phone_number'])->first();
+        $searchCarNumberDuplicate =  DB::table('cars')->where('state_number','=',$data['state_number'])->first();
+
+        if ($searchPhoneNumberDuplicate != null){
+            //dd($searchPhoneNumberDuplicate->id);
+            if ($searchPhoneNumberDuplicate->id !=$clientId){
+                return redirect()->back()->with('error','Клиент с таким номером уже существует');
+            }
         }
-        catch (Exception $e){
-            redirect()->back()->with('error',$e->getMessage());
+
+        if ($searchCarNumberDuplicate != null){
+            //dd($searchCarNumberDuplicate->id);
+            if ($searchCarNumberDuplicate->id !=$carId){
+                return redirect()->back()->with('error','Автомобиль с таким номером уже существует');
+            }
         }
+
+        DB::table('clients')->where('id','=',$clientId)->update([
+            'full_name'=>$data['full_name'],
+            'phone_number'=>$data['phone_number'],
+            'gender'=>$data['gender'],
+            'address'=>$data['address']]);
+        DB::table('cars')->where('id','=',$carId)->update([
+            'brand'=>$data['brand'],
+            'model'=>$data['model'],
+            'state_number'=>$data['state_number'],
+            'color'=>$data['color']]);
+        return redirect()->back()->with('success','Данные успешно изменены');
+        //return redirect()->route('index');
+//        try {
+//            DB::table('clients')->where('id','=',$clientId)->update([
+//                'full_name'=>$data['full_name'],
+//                'phone_number'=>$data['phone_number'],
+//                'gender'=>$data['gender'],
+//                'address'=>$data['address']]);
+//            DB::table('cars')->where('id','=',$carId)->update([
+//                'brand'=>$data['brand'],
+//                'model'=>$data['model'],
+//                'state_number'=>$data['state_number'],
+//                'color'=>$data['color']]);
+//            return redirect()->route('index');
+//        }
+//        catch (Exception $e){
+//            redirect()->back()->with('error',$e->getMessage());
+//        }
 
 
 //        $clientNumberExist = DB::table('clients')->where('phone_number','=',$data['phone_number'])->first();

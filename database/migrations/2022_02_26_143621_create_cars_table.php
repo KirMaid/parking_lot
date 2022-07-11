@@ -18,7 +18,7 @@ class CreateCarsTable extends Migration
             $table->string('brand');
             $table->string('model');
             $table->string('color');
-            $table->string('state_number');
+            $table->string('state_number')->unique();
             $table->boolean('flag');
             $table->foreignId('client_id')->constrained('clients')->onUpdate('cascade')->onDelete('cascade');;
 //            $table->foreignId('client_id')->references('id')->on('clients');

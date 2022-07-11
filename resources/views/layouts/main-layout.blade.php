@@ -11,6 +11,11 @@
 </head>
 <body>
 <div class="container fs-5">
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href={{route('index')}}>Home</a>
+        </div>
+    </nav>
     @yield('content')
 </div>
 <script src={{asset('js/app.js')}}}></script>

@@ -37,6 +37,10 @@ class AddPageController extends Controller
             ]);
         }
 
+//        if ($data->fails()){
+//            return back()->with('error','Ошибка валидации: проверьте правильность заполнения полей');
+//        }
+
         $clientNumberExist = DB::table('clients')->where('phone_number','=',$data['phone_number'])->first();
         //dd($clientNumberExist);
         $carNumberExist = DB::table('cars')->where('state_number','=',$data['state_number'])->first();
@@ -58,7 +62,8 @@ class AddPageController extends Controller
                     'client_id'=> $clientId,
                 ]);
 
-                return redirect()->route('index');
+                //return redirect()->route('index');
+                return redirect()->back()->with('success','Клиент и автомобиль успешно добавленны');
             }
             else{
                 return back()->with('error','Автомобиль с таким госномером уже существует');
@@ -78,7 +83,8 @@ class AddPageController extends Controller
                             'flag'=> (request()->input('flag') == true)?1:0,
                             'client_id'=> $clientNumberExist->id,
                         ]);
-                        return redirect()->route('index');
+                        //return redirect()->route('index');
+                        return redirect()->back()->with('success','Автомобиль успешно добавлен');
                     }
             }
             return back()->with('error','Клиент с таким номером телефона уже существует');
