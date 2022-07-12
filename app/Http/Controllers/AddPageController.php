@@ -17,23 +17,23 @@ class AddPageController extends Controller
     {
         if (request()->input('addCar')){
             $data = request()->validate([
-                'phone_number'=>'int|required',
-                'brand'=>'string|required',
-                'model'=>'string|required',
-                'state_number'=>'string|required',
-                'color'=>'string|required',
+                'phone_number'=>'required|int',
+                'brand'=>'required|string',
+                'model'=>'required|string',
+                'state_number'=>'required|string',
+                'color'=>'required|string',
             ]);
         }
         else{
             $data = request()->validate([
-                'full_name'=>'string|required',
-                'phone_number'=>'int|required',
-                'gender'=>'string|required',
-                'address'=>'string|required',
-                'brand'=>'string|required',
-                'model'=>'string|required',
-                'state_number'=>'string|required',
-                'color'=>'string|required',
+                'full_name'=>'required|string',
+                'phone_number'=>'required|int',
+                'gender'=>'required|string',
+                'address'=>'required|string',
+                'brand'=>'required|string',
+                'model'=>'required|string',
+                'state_number'=>'required|string',
+                'color'=>'required|string',
             ]);
         }
 
