@@ -28,6 +28,7 @@ Route::put('/parking',[DropdownController::class,'update'])->name('parking.updat
 //Route::get('/edit',[EditPageController::class,'index'])->name('edit');
 Route::get('/edit/{id}',[EditPageController::class,'index'])->name('edit.show');
 Route::post('/edit/{id}',[EditPageController::class,'editClient'])->name('edit.store');
+Route::delete('/edit/{id}',[EditPageController::class,'destroy'])->name('edit.destroy');
 Route::get('/add',[AddPageController::class,'index'])->name('add.index');
 Route::post('/add',[AddPageController::class,'insertClient'])->name('add.store');
 Route::delete('/{id}',[MainTableController::class,'destroy'])->name('destroy');

@@ -36,6 +36,11 @@
                 </div>
                 @enderror
                 <button class="btn btn-primary mt-2" type="submit">Сохранить</button>
+                <form action="{{ route('edit.destroy',['id' => $car->id])}}" method="POST">
+                    @csrf
+                    @method('delete')
+                    <button class="btn btn-danger mt-2" type="submit">Удалить клиента</button>
+                </form>
             </div>
             <div class="col">
                 <h2 class="mb-3">Добавить автомобиль</h2>
